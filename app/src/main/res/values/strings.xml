@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PruebasCameraX_MLKit</string>
+
+    <!-- Fragment Menu Principal -->
+    <string name="titMenuPrincipal">Menu Principal</string>
+    <!-- Fin Fragment Menu Principal -->
+
+</resources>
