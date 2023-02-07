@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/fragmentMenuPrincipal"
         android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentMenuPrincipal"
-        android:label="FragmentMenuPrincipal" />
+        android:label="FragmentMenuPrincipal">
+
+        <action
+            android:id="@+id/irFragmentPruebaCameraX"
+            app:destination="@id/fragmentPruebaCameraX"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentPruebaCameraX"
+        android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaCameraX"
+        android:label="FragmentPruebaCameraX"/>
+
 </navigation>

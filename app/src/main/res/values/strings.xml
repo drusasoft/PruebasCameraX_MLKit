@@ -5,4 +5,10 @@
     <string name="titMenuPrincipal">Menu Principal</string>
     <!-- Fin Fragment Menu Principal -->
 
+    <!-- Fragment CameraX -->
+    <string name="titFragmentCameraX">Prueba CameraX</string>
+    <string name="titApartadoCameraX">Apartado Camera X</string>
+    <string name="txtOpcionCameraX">* Prueba Camera X</string>
+    <!-- Fin Fragment CameraX -->
+
 </resources>
