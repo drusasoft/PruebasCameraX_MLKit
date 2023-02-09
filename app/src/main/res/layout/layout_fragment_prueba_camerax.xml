@@ -22,4 +22,46 @@
         app:backgroundTint="@color/indigo_500"
         app:iconTint="@color/white"/>
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16sp"
+        android:layout_marginBottom="16sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        app:icon="@drawable/ic_flash"
+        app:rippleColor="@color/white"
+        app:backgroundTint="@color/indigo_500"
+        app:iconTint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnZoomMenos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="80sp"
+        android:layout_marginBottom="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        app:icon="@drawable/ic_zoom_out"
+        app:rippleColor="@color/white"
+        app:backgroundTint="@color/indigo_500"
+        app:iconTint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/btnZoomMas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="144sp"
+        android:layout_marginBottom="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        app:icon="@drawable/ic_zoom_in"
+        app:rippleColor="@color/white"
+        app:backgroundTint="@color/indigo_500"
+        app:iconTint="@color/white"/>
+
 </RelativeLayout>

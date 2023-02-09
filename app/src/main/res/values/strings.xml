@@ -3,12 +3,16 @@
 
     <!-- Fragment Menu Principal -->
     <string name="titMenuPrincipal">Menu Principal</string>
+    <string name="titApartadoCameraX">Apartado Camera X</string>
+    <string name="titApartadoMLKit">Apartado ML Kit</string>
+    <string name="txtOpcionCameraX">* Prueba Camera X</string>
     <!-- Fin Fragment Menu Principal -->
 
     <!-- Fragment CameraX -->
     <string name="titFragmentCameraX">Prueba CameraX</string>
-    <string name="titApartadoCameraX">Apartado Camera X</string>
-    <string name="txtOpcionCameraX">* Prueba Camera X</string>
+    <string name="errorCameraX">Error al Iniciar la Camara</string>
     <!-- Fin Fragment CameraX -->
+
+
 
 </resources>

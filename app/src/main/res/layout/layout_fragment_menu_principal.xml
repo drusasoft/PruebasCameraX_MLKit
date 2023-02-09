@@ -42,4 +42,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separadorApartadoCamera" />
 
+
+
+    <TextView
+        android:id="@+id/textViewApartadoMLKit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="128dp"
+        android:fontFamily="@font/aclonica"
+        android:text="@string/titApartadoMLKit"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/txtPruebaCameraX" />
+
+    <View
+        android:id="@+id/separadorApartadoMLKit"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewApartadoMLKit"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
