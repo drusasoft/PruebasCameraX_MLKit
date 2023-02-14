@@ -6,6 +6,7 @@
     <string name="titApartadoCameraX">Apartado Camera X</string>
     <string name="titApartadoMLKit">Apartado ML Kit</string>
     <string name="txtOpcionCameraX">* Prueba Camera X</string>
+    <string name="txtOpcionLectorQR">* Prueba Lector QR</string>
     <!-- Fin Fragment Menu Principal -->
 
     <!-- Fragment CameraX -->

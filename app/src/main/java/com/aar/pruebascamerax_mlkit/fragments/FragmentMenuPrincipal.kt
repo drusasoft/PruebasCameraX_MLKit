@@ -27,6 +27,7 @@ class FragmentMenuPrincipal: Fragment()
     private lateinit var requestPermissionLauncher:ActivityResultLauncher<String>
 
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
         val binding = LayoutFragmentMenuPrincipalBinding.inflate(inflater, container, false)
@@ -46,8 +47,9 @@ class FragmentMenuPrincipal: Fragment()
                 //Se solicita permiso al usuario para usar la camara
                 requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
             }
-
         }
+
+        binding.txtPruebaLectorQR.setOnClickListener { navController.navigate(R.id.irFragmentPruebaLectorQR)}
 
         //****************** Fin Clicklisteners ******************
 

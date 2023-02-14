@@ -13,11 +13,20 @@
             android:id="@+id/irFragmentPruebaCameraX"
             app:destination="@id/fragmentPruebaCameraX"/>
 
+        <action
+            android:id="@+id/irFragmentPruebaLectorQR"
+            app:destination="@id/fragmentPruebaLectorQR" />
+
     </fragment>
 
     <fragment
         android:id="@+id/fragmentPruebaCameraX"
         android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaCameraX"
         android:label="FragmentPruebaCameraX"/>
+
+    <fragment
+        android:id="@+id/fragmentPruebaLectorQR"
+        android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaLectorQR"
+        android:label="FragmentPruebaLectorQR" />
 
 </navigation>
