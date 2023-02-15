@@ -35,6 +35,7 @@ class FragmentPruebaCameraX: Fragment()
 
         binding = LayoutFragmentPruebaCameraxBinding.inflate(inflater, container, false)
 
+
         //****************** Clicklisteners ******************
 
         binding.encenderApagarBtn.setOnClickListener { if(!camaraEncendida) iniciarCameraX() else apagarCameraX() }
@@ -46,6 +47,7 @@ class FragmentPruebaCameraX: Fragment()
         binding.btnZoomMenos.setOnClickListener { reducirZoom() }
 
         //****************** Fin Clicklisteners ******************
+
 
         return binding.root
 

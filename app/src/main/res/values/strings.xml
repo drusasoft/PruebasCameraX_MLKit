@@ -14,6 +14,10 @@
     <string name="errorCameraX">Error al Iniciar la Camara</string>
     <!-- Fin Fragment CameraX -->
 
+    <!-- Fragment LectorQR -->
+    <string name="titFragmentLectorQR">Prueba Lector QR</string>
+    <!-- Fin Fragment LectorQR -->
+
 
 
 </resources>

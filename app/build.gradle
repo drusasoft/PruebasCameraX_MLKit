@@ -46,6 +46,7 @@ dependencies {
     def version_coroutine = "1.6.1"
     def nav_version = "2.5.3"
     def camerax_version = "1.1.0-beta01"
+    def barcode_scanning_version = "17.0.3"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -71,6 +72,9 @@ dependencies {
     implementation "androidx.camera:camera-video:${camerax_version}"
     implementation "androidx.camera:camera-view:${camerax_version}"
     implementation "androidx.camera:camera-extensions:${camerax_version}"
+
+    //Libreria ML_KIT para leer codigos QR y de barras
+    implementation "com.google.mlkit:barcode-scanning:${barcode_scanning_version}"
 
 
     //Librerias para Test

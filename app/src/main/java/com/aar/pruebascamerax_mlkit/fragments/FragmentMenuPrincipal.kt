@@ -39,17 +39,21 @@ class FragmentMenuPrincipal: Fragment()
 
             //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
             if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
-            {
-                navController.navigate(R.id.irFragmentPruebaCameraX)
 
-            }else
-            {
-                //Se solicita permiso al usuario para usar la camara
-                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
-            }
+                navController.navigate(R.id.irFragmentPruebaCameraX)
+            else
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA) //Se solicita permiso al usuario para usar la camara
+
         }
 
-        binding.txtPruebaLectorQR.setOnClickListener { navController.navigate(R.id.irFragmentPruebaLectorQR)}
+        binding.txtPruebaLectorQR.setOnClickListener {
+
+            //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
+            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                navController.navigate(R.id.irFragmentPruebaLectorQR)
+            else
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA) //Se solicita permiso al usuario para usar la camara
+        }
 
         //****************** Fin Clicklisteners ******************
 
