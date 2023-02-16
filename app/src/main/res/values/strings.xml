@@ -7,6 +7,7 @@
     <string name="titApartadoMLKit">Apartado ML Kit</string>
     <string name="txtOpcionCameraX">* Prueba Camera X</string>
     <string name="txtOpcionLectorQR">* Prueba Lector QR</string>
+    <string name="txtOpcionEtiquetadoImagenes">* Prueba Etiquetado Imagenes</string>
     <!-- Fin Fragment Menu Principal -->
 
     <!-- Fragment CameraX -->
@@ -18,6 +19,8 @@
     <string name="titFragmentLectorQR">Prueba Lector QR</string>
     <!-- Fin Fragment LectorQR -->
 
-
+    <!-- Fragment EtiquetadoImagenes -->
+    <string name="titFragmentEtiquetadoImagenes">Prueba Etiquetado Imagenes</string>
+    <!-- Fin Fragment EtiquetadoImagenes -->
 
 </resources>

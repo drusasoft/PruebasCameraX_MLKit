@@ -1,6 +1,7 @@
 package com.aar.pruebascamerax_mlkit.fragments
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +12,11 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.aar.pruebascamerax_mlkit.R
 import com.aar.pruebascamerax_mlkit.databinding.LayoutFragmentPruebaLectorQrBinding
+import com.aar.pruebascamerax_mlkit.models.FragmentPruebasLectorQRViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -25,6 +29,7 @@ class FragmentPruebaLectorQR: Fragment()
 {
 
     private lateinit var binding:LayoutFragmentPruebaLectorQrBinding
+    private val model by viewModels<FragmentPruebasLectorQRViewModel>()
 
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var cameraControl: CameraControl
@@ -53,10 +58,21 @@ class FragmentPruebaLectorQR: Fragment()
     }
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Se registran los Observers para las variables Livedata del ViewModel
+        setObservers()
+    }
+
+
 
     //Se inicia CameraX
     private fun iniciarCameraX()
     {
+        model.limpiarVariablesLiveData()//Se limpia el contenido de la variable LiveData definida en el ViewModel
+
         //Se crea una instancia del Objeto ProcessCameraProvider, que permite vincular la camara con el  propietario del ciclo de vida (En este caso el Fragment)
         //y con esto no hay que preocuparse de abrir y cerrar la camara, ya que cameraX es consciente del ciclo de vida
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -107,6 +123,7 @@ class FragmentPruebaLectorQR: Fragment()
             }
 
         }, ContextCompat.getMainExecutor(requireContext()))//En este ultimo parametro indicamos que el Listener se ejecute en el hilo principal
+
     }
 
 
@@ -137,50 +154,32 @@ class FragmentPruebaLectorQR: Fragment()
     }
 
 
-    //********** para pruebas
-    private fun escanearCodigoQR(imagen:InputImage, imageProxy: ImageProxy)
+    //Se declaran los observers para las variables LiveData definidas en el ViewModel
+    private fun setObservers()
     {
-        //Log.e("Pruebas", "escanearCodigoQR")
 
-        //Se configura el Escaner de Codigos, para que solo pueda leer codigos con formaro QR y AZTEC (Asi va mas Rapido)
-        val options = BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_QR_CODE, Barcode.FORMAT_AZTEC).build()
+        //Observer para la variable tipoCodigoLive que contiene el tipo de Codigo Escaneado
+        model.tipoCodigoLive.observe(viewLifecycleOwner){tipoCodigo->
 
-        //Se inicia el Escaner de Codigos indicandole los formatos de Codigos permitidos
-        val scanner = BarcodeScanning.getClient(options)
+            if(tipoCodigo != "")
+            {
+                //Una vez capturado el codigo correctamente, se detiene la Camara
+                apagarCamaraX()
 
-        //Se procesa la imagen pasada como parametro, para leer el CodigoQR
-        val result = scanner.process(imagen).addOnSuccessListener { codigosQR->
+                val textoDialogo = "Codigo escaneado del tipo: ${tipoCodigo}"
 
-            Log.e("Scanneo OK", "Codigo Escaneado Correctamente")
-
-            codigosQR.forEach {
-
-                val valueType = it.valueType
-
-                when(valueType)
-                {
-                    Barcode.TYPE_PHONE->{ Log.e("CodigoQR", "Tipo LLamda") }
-
-                    Barcode.TYPE_EMAIL->{ Log.e("CodigoQR", "Tipo Email") }
-
-                    Barcode.TYPE_SMS->{ Log.e("CodigoQR", "Tipo SMS") }
-
-                    else ->{ Log.e("Mierda", "No es Codigo") }
-                }
-
+                //Se muestra un Cuadro de Dialogo, informando del tipo de codigo escaneado
+                MaterialAlertDialogBuilder(requireContext(), com.google.android.material.R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_Centered)
+                    .setTitle("Codigo Escaneado")
+                    .setMessage(textoDialogo)
+                    .setPositiveButton("OK", null)
+                    .setCancelable(false)
+                    .show()
             }
 
-            imageProxy.close()
-
-
-
-        }.addOnCanceledListener {
-            Log.e("Error", "Escaneo Cancelado")
-            imageProxy.close()
         }
 
     }
-
 
 
 
@@ -197,9 +196,8 @@ class FragmentPruebaLectorQR: Fragment()
                 //Se crea la imagen que se va a pasar al scaner de codigos QR, dicha imagen se contruye pasando la Imagen obtenida por el Analizador de CameraX y su rotacion en grados
                 val imagenAnalizar = InputImage.fromMediaImage(image, imageProxy.imageInfo.rotationDegrees)
 
-                //Se pasa la imagen al Escaner de CodigosQR
-                escanearCodigoQR(imagenAnalizar, imageProxy)
-
+                //Se pasa la imagen al Escaner de CodigosQR (Definido en el ViewModel)
+                model.escanearCodigoQR(imagenAnalizar, imageProxy)
             }
 
         }

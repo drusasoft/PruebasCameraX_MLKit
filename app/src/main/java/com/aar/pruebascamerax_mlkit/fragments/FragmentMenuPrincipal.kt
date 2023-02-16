@@ -55,6 +55,8 @@ class FragmentMenuPrincipal: Fragment()
                 requestPermissionLauncher.launch(android.Manifest.permission.CAMERA) //Se solicita permiso al usuario para usar la camara
         }
 
+        binding.txtPruebaEtiquetadoImagenes.setOnClickListener { navController.navigate(R.id.irFragmentPruebaEtiquetadoImagenes) }
+
         //****************** Fin Clicklisteners ******************
 
 

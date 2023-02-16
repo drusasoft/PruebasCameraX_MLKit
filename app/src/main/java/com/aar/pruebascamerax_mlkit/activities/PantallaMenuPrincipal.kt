@@ -36,6 +36,7 @@ class PantallaMenuPrincipal : AppCompatActivity()
                 controller.graph.startDestinationId->{ supportActionBar!!.setTitle(R.string.titMenuPrincipal) }
                 R.id.fragmentPruebaCameraX->{ supportActionBar!!.setTitle(R.string.titFragmentCameraX) }
                 R.id.fragmentPruebaLectorQR->{ supportActionBar!!.setTitle(R.string.titFragmentLectorQR) }
+                R.id.fragmentPruebaEtiquetadoImagenes->{ supportActionBar!!.setTitle(R.string.titFragmentEtiquetadoImagenes)}
             }
 
         }

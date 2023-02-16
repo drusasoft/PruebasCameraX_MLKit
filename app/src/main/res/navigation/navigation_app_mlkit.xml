@@ -15,7 +15,11 @@
 
         <action
             android:id="@+id/irFragmentPruebaLectorQR"
-            app:destination="@id/fragmentPruebaLectorQR" />
+            app:destination="@id/fragmentPruebaLectorQR"/>
+
+        <action
+            android:id="@+id/irFragmentPruebaEtiquetadoImagenes"
+            app:destination="@id/fragmentPruebaEtiquetadoImagenes"/>
 
     </fragment>
 
@@ -27,6 +31,11 @@
     <fragment
         android:id="@+id/fragmentPruebaLectorQR"
         android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaLectorQR"
-        android:label="FragmentPruebaLectorQR" />
+        android:label="FragmentPruebaLectorQR"/>
+
+    <fragment
+        android:id="@+id/fragmentPruebaEtiquetadoImagenes"
+        android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaEtiquetadoImagenes"
+        android:label="FragmentPruebaEtiquetadoImagenes"/>
 
 </navigation>
