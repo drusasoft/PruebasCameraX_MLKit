@@ -25,6 +25,9 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 
+
+
+
 class FragmentPruebaLectorQR: Fragment()
 {
 
@@ -96,8 +99,6 @@ class FragmentPruebaLectorQR: Fragment()
                 .build()
                 .also { it.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), AnalizadorImagen()) }
 
-
-
             try {
 
                 //Antes de usar la camara se libera su recurso
@@ -133,6 +134,7 @@ class FragmentPruebaLectorQR: Fragment()
     {
         cameraProvider.unbindAll()
         camaraEncendida = false
+        flashEncendido = false
 
         binding.btnFlash.hide()
     }
