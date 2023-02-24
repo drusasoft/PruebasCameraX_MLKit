@@ -21,6 +21,10 @@
             android:id="@+id/irFragmentPruebaEtiquetadoImagenes"
             app:destination="@id/fragmentPruebaEtiquetadoImagenes"/>
 
+        <action
+            android:id="@+id/irFragmentPruebaDetectorObjetos"
+            app:destination="@id/fragmentPruebaDetectorObjetos" />
+
     </fragment>
 
     <fragment
@@ -37,5 +41,10 @@
         android:id="@+id/fragmentPruebaEtiquetadoImagenes"
         android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaEtiquetadoImagenes"
         android:label="FragmentPruebaEtiquetadoImagenes"/>
+
+    <fragment
+        android:id="@+id/fragmentPruebaDetectorObjetos"
+        android:name="com.aar.pruebascamerax_mlkit.fragments.FragmentPruebaDetectorObjetos"
+        android:label="FragmentPruebaDetectorObjetos" />
 
 </navigation>

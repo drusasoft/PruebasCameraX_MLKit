@@ -48,6 +48,7 @@ dependencies {
     def camerax_version = "1.1.0-beta01"
     def barcode_scanning_version = "17.0.3"
     def image_labeling_version = "17.0.7"
+    def object_detection_version = "17.0.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -79,6 +80,10 @@ dependencies {
 
     //Libreria ML_KIT para el etiquetado de Imagenes
     implementation "com.google.mlkit:image-labeling:${image_labeling_version}"
+
+    //Libreria ML_KIT para el detector de Objetos
+    implementation "com.google.mlkit:object-detection:${object_detection_version}"
+
 
 
     //Librerias para Test

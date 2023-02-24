@@ -33,8 +33,9 @@ class FragmentMenuPrincipal: Fragment()
         val binding = LayoutFragmentMenuPrincipalBinding.inflate(inflater, container, false)
 
 
-        //****************** Clicklisteners ******************
+        //************************************ Clicklisteners ************************************
 
+                //Click en la Opcion Prueba Camera X
         binding.txtPruebaCameraX.setOnClickListener {
 
             //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
@@ -46,6 +47,8 @@ class FragmentMenuPrincipal: Fragment()
 
         }
 
+
+                //Click en la Opcion Prueba LectorQR
         binding.txtPruebaLectorQR.setOnClickListener {
 
             //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
@@ -55,9 +58,29 @@ class FragmentMenuPrincipal: Fragment()
                 requestPermissionLauncher.launch(android.Manifest.permission.CAMERA) //Se solicita permiso al usuario para usar la camara
         }
 
-        binding.txtPruebaEtiquetadoImagenes.setOnClickListener { navController.navigate(R.id.irFragmentPruebaEtiquetadoImagenes) }
 
-        //****************** Fin Clicklisteners ******************
+                //Click en la Opcion Etiquetador Imagenes
+        binding.txtPruebaEtiquetadoImagenes.setOnClickListener {
+
+            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                navController.navigate(R.id.irFragmentPruebaEtiquetadoImagenes)
+            else
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+        }
+
+
+                //Click en la Opcion Detector Objetos
+        binding.txtPruebaDetectorObjetos.setOnClickListener {
+
+            //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
+            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                navController.navigate(R.id.irFragmentPruebaDetectorObjetos)
+            else
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)//Se solicita permiso al usuario para usar la camara
+
+        }
+
+        //************************************ Fin Clicklisteners ************************************
 
 
 

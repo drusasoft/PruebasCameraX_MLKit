@@ -8,6 +8,7 @@
     <string name="txtOpcionCameraX">* Prueba Camera X</string>
     <string name="txtOpcionLectorQR">* Prueba Lector QR</string>
     <string name="txtOpcionEtiquetadoImagenes">* Prueba Etiquetado Imagenes</string>
+    <string name="txtOpcionDetectorImages">* Prueba Detector Objetos</string>
     <!-- Fin Fragment Menu Principal -->
 
     <!-- Fragment CameraX -->
@@ -21,6 +22,12 @@
 
     <!-- Fragment EtiquetadoImagenes -->
     <string name="titFragmentEtiquetadoImagenes">Prueba Etiquetado Imagenes</string>
+    <string name="txtInfoEtiquetadoImagenes">Se etiquetan los objetos detectados en la imagen obtenida por la camara, para ello el analizador usa un modelo estandar con mas de 400 etiquetas (Mesa, TV, Ordenador...etc).</string>
+    <!-- Fin Fragment EtiquetadoImagenes -->
+
+    <!-- Fragment DetectorObjetos -->
+    <string name="titFragmentDetectorObjetos">Prueba Detector Objetos</string>
+    <string name="txtInfoDetectorImagenes">Se detectan los objetos en la imagen obtenida por la camara, se obtiene el nombre de los objetos y su posicion en la imagen para asi por ejemplo poder marcarlos con un rectangulo.</string>
     <!-- Fin Fragment EtiquetadoImagenes -->
 
 </resources>

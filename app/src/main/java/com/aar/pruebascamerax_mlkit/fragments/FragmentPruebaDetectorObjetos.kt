@@ -2,6 +2,7 @@ package com.aar.pruebascamerax_mlkit.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,22 +11,19 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.aar.pruebascamerax_mlkit.R
-import com.aar.pruebascamerax_mlkit.databinding.LayoutFrgamentEtiquetadoImagenesBinding
-import com.aar.pruebascamerax_mlkit.models.FragmentEtiquetadoImagenesViewModel
+import com.aar.pruebascamerax_mlkit.databinding.LayoutFragmentDetectorObjetosBinding
 import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.objects.ObjectDetection
+import com.google.mlkit.vision.objects.ObjectDetector
+import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase
+import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
 
 
-
-
-
-
-class FragmentPruebaEtiquetadoImagenes():Fragment()
+class FragmentPruebaDetectorObjetos: Fragment()
 {
 
-    private lateinit var binding: LayoutFrgamentEtiquetadoImagenesBinding
-    private val model by viewModels<FragmentEtiquetadoImagenesViewModel>()
+    private lateinit var binding: LayoutFragmentDetectorObjetosBinding
 
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var cameraControl: CameraControl
@@ -37,9 +35,8 @@ class FragmentPruebaEtiquetadoImagenes():Fragment()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        binding = LayoutFrgamentEtiquetadoImagenesBinding.inflate(inflater, container, false)
-        binding.etiquetadorModel = model//Se asocia el ViewModel con el XML de IU para asi actualizar el contenido de algun View del XML con el valor de alguna de la variables LiveData del ViewModel (Y me ahorro codigo)
-        binding.lifecycleOwner = this//Para que los datos del ViewModel se puedan mostrar directamente en el XML
+        binding = LayoutFragmentDetectorObjetosBinding.inflate(inflater, container, false)
+
 
         //****************** Clicklisteners ******************
 
@@ -58,11 +55,6 @@ class FragmentPruebaEtiquetadoImagenes():Fragment()
     //Se inicia CameraX
     private fun iniciarCameraX()
     {
-
-        binding.etiquetaOro.visibility = View.VISIBLE
-        binding.etiquetaPlata.visibility = View.VISIBLE
-        binding.etiquetaBronce.visibility = View.VISIBLE
-
 
         //Se crea una instancia del Objeto ProcessCameraProvider, que permite vincular la camara con el  propietario del ciclo de vida (En este caso el Fragment)
         //y con esto no hay que preocuparse de abrir y cerrar la camara, ya que cameraX es consciente del ciclo de vida
@@ -126,9 +118,6 @@ class FragmentPruebaEtiquetadoImagenes():Fragment()
         flashEncendido = false
 
         binding.btnFlash.hide()
-        binding.etiquetaOro.visibility = View.INVISIBLE
-        binding.etiquetaPlata.visibility = View.INVISIBLE
-        binding.etiquetaBronce.visibility = View.INVISIBLE
     }
 
 
@@ -140,7 +129,6 @@ class FragmentPruebaEtiquetadoImagenes():Fragment()
     }
 
 
-
     private fun apagarFlash()
     {
         cameraControl.enableTorch(false)
@@ -149,21 +137,70 @@ class FragmentPruebaEtiquetadoImagenes():Fragment()
 
 
 
+    //*********** Para pruebas
+    fun detectarObjetos(imagenAnalizar: InputImage, imageProxy: ImageProxy)
+    {
+
+        //Se configura el Detector para detectar objeto con Imagenes en Modo Live
+        val options = ObjectDetectorOptions.Builder()
+            .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
+            //.enableClassification()//Opcional
+            .build()
+
+        //Se configura el Detector para detectar multiples objeto en Imagenes Estaticas
+        /*val options = ObjectDetectorOptions.Builder()
+            .setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE)
+            .enableMultipleObjects()
+            .enableClassification()//Opcional
+            .build()*/
+
+
+        //Se crea el detector de objetos con la configuracion que hemos indicado previamente
+        val detectorObjetos = ObjectDetection.getClient(options)
+
+        //Se pasa la imagen a Analizar al Detector de Objeto que hemos Creado
+        detectorObjetos.process(imagenAnalizar).addOnSuccessListener {listaObjetosDetectados->
+
+            if(listaObjetosDetectados.size > 0 )
+            {
+                val rect = listaObjetosDetectados.get(0).boundingBox
+                Log.e("Objeto Detectado", "Posicion: ${rect}")
+
+
+                if(listaObjetosDetectados.get(0).labels.size > 0)
+                {
+                    val etiqueta = listaObjetosDetectados.get(0).labels.get(0).text
+                    Log.e("Nombre Objeto Detectado", "${etiqueta}")
+                }
+
+            }
+
+
+            //Se cierra la imagen capturada por el analizador de CameraX
+            imageProxy.close()
+
+        }
+        .addOnFailureListener {
+            Log.e("Error", "Fallo Detector Objetos")
+            imageProxy.close()
+        }
+
+    }
 
 
     //******** Clase interna donde se define el analizador de Imagen usado por CameraX, El analizado devueve Resultados cada segundo aproximadamente ********
 
-    inner class AnalizadorImagen(): ImageAnalysis.Analyzer
-    {
+    inner class AnalizadorImagen():ImageAnalysis.Analyzer{
+
         @SuppressLint("UnsafeOptInUsageError")
         override fun analyze(imageProxy: ImageProxy)
         {
-            imageProxy.image?.let {image->
+            imageProxy.image?.let { image ->
 
                 val imagenAnalizar = InputImage.fromMediaImage(image, imageProxy.imageInfo.rotationDegrees)
 
-                //Se pasa la imagen que se quiere etiquetar al Escaner de Imagenes declarado en el ViewModel
-                model.etiquetarImagenes(imagenAnalizar, imageProxy)
+                //Se pasa la imagen de la que se quiere detectar objetos dentro de la misma al Escaner que se encarga de acerlo
+                detectarObjetos(imagenAnalizar, imageProxy)
             }
         }
 

@@ -37,6 +37,7 @@ class PantallaMenuPrincipal : AppCompatActivity()
                 R.id.fragmentPruebaCameraX->{ supportActionBar!!.setTitle(R.string.titFragmentCameraX) }
                 R.id.fragmentPruebaLectorQR->{ supportActionBar!!.setTitle(R.string.titFragmentLectorQR) }
                 R.id.fragmentPruebaEtiquetadoImagenes->{ supportActionBar!!.setTitle(R.string.titFragmentEtiquetadoImagenes)}
+                R.id.fragmentPruebaDetectorObjetos->{ supportActionBar!!.setTitle(R.string.titFragmentDetectorObjetos) }
             }
 
         }
