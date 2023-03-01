@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutParentDetectorObjetos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -9,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white" />
+
+    <ImageView
+        android:id="@+id/imgViewTransparente"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -28,6 +34,19 @@
             android:text="@string/txtInfoDetectorImagenes"/>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/textViewEtiquetaObjeto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginLeft="90dp"
+        android:layout_marginRight="90dp"
+        android:layout_marginBottom="40dp"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/aclonica"
+        android:textColor="@color/rojo"
+        android:text="--"/>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/encenderApagarBtn"

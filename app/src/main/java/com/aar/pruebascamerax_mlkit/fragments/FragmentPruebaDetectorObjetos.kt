@@ -1,8 +1,8 @@
 package com.aar.pruebascamerax_mlkit.fragments
 
 import android.annotation.SuppressLint
+import android.graphics.*
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,19 +11,21 @@ import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.aar.pruebascamerax_mlkit.R
 import com.aar.pruebascamerax_mlkit.databinding.LayoutFragmentDetectorObjetosBinding
+import com.aar.pruebascamerax_mlkit.models.FragmentPruebaDetectorObjetosViewModel
 import com.google.mlkit.vision.common.InputImage
-import com.google.mlkit.vision.objects.ObjectDetection
-import com.google.mlkit.vision.objects.ObjectDetector
-import com.google.mlkit.vision.objects.ObjectDetectorOptionsBase
-import com.google.mlkit.vision.objects.defaults.ObjectDetectorOptions
+
+
+
 
 
 class FragmentPruebaDetectorObjetos: Fragment()
 {
 
     private lateinit var binding: LayoutFragmentDetectorObjetosBinding
+    private val model by viewModels<FragmentPruebaDetectorObjetosViewModel>()
 
     private lateinit var cameraProvider: ProcessCameraProvider
     private lateinit var cameraControl: CameraControl
@@ -80,7 +82,6 @@ class FragmentPruebaDetectorObjetos: Fragment()
                 .also { it.setAnalyzer(ContextCompat.getMainExecutor(requireContext()), AnalizadorImagen()) }
 
 
-
             try {
 
                 //Antes de usar la camara se libera su recurso
@@ -111,6 +112,16 @@ class FragmentPruebaDetectorObjetos: Fragment()
 
 
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?)
+    {
+        super.onViewCreated(view, savedInstanceState)
+
+        //Se registran los Observers para las variables Livedata del ViewModel
+        setObservers()
+    }
+
+
+
     private fun apagarCameraX()
     {
         cameraProvider.unbindAll()
@@ -118,6 +129,10 @@ class FragmentPruebaDetectorObjetos: Fragment()
         flashEncendido = false
 
         binding.btnFlash.hide()
+
+        //Se limpia el ImageView del rectangulo que se hubiera dibujado en una deteccion anterior
+        binding.imgViewTransparente.setImageBitmap(null)
+        binding.textViewEtiquetaObjeto.text = "--"
     }
 
 
@@ -129,6 +144,7 @@ class FragmentPruebaDetectorObjetos: Fragment()
     }
 
 
+
     private fun apagarFlash()
     {
         cameraControl.enableTorch(false)
@@ -137,55 +153,72 @@ class FragmentPruebaDetectorObjetos: Fragment()
 
 
 
-    //*********** Para pruebas
-    fun detectarObjetos(imagenAnalizar: InputImage, imageProxy: ImageProxy)
+    //Se dibuja el Rectangulo con lineas Rojas para marcar donde se encuentra el objeto detectado
+    private fun dibujarLimiteObjeto(rect:Rect)
+    {
+        //Se limpia el ImageView del rectangulo que se hubiera dibujado en una deteccion anterior
+        binding.imgViewTransparente.setImageBitmap(null)
+
+        val alto = binding.imgViewTransparente.height
+        val ancho = binding.imgViewTransparente.width
+
+        //Se crea un BitmapTranparente (con el mismo tamaño que el ImageView que lo va a mostrar),
+        //para crear un Canvas a partir de el y poder dibujar sobre dicho canvas.
+        val bitmap = Bitmap.createBitmap(
+            ancho, // Width
+            alto, // Height
+            Bitmap.Config.ARGB_8888 // Config
+        )
+
+        //Se instancia el canvas a partir del Bitmap anterior
+        val canvas = Canvas(bitmap)
+
+        //Se dibuja el rectangulo rojo sobre el canvas del Bitmap anteriormente
+        val paint = Paint()
+        paint.isAntiAlias = true
+        paint.color = resources.getColor(R.color.rojo, null)
+        paint.strokeWidth = 2f
+        paint.style = Paint.Style.STROKE
+        canvas.drawRect(rect, paint)
+
+        //Por ultimo se muestra el Bitmap creado en el ImageView de la IU
+        binding.imgViewTransparente.setImageBitmap(bitmap)
+    }
+
+
+
+    //Se declaran los Observers para las Varibles de Tipo LiveData definidas en el ViewModel
+    private fun setObservers()
     {
 
-        //Se configura el Detector para detectar objeto con Imagenes en Modo Live
-        val options = ObjectDetectorOptions.Builder()
-            .setDetectorMode(ObjectDetectorOptions.STREAM_MODE)
-            //.enableClassification()//Opcional
-            .build()
+        //Se declara el Observer para la Variable objetoDetectadoLive que contiene el Obketo detectado por el Detector de Objetos
+        model.objetoDetectadoLive.observe(viewLifecycleOwner){objetoDetectado->
 
-        //Se configura el Detector para detectar multiples objeto en Imagenes Estaticas
-        /*val options = ObjectDetectorOptions.Builder()
-            .setDetectorMode(ObjectDetectorOptions.SINGLE_IMAGE_MODE)
-            .enableMultipleObjects()
-            .enableClassification()//Opcional
-            .build()*/
-
-
-        //Se crea el detector de objetos con la configuracion que hemos indicado previamente
-        val detectorObjetos = ObjectDetection.getClient(options)
-
-        //Se pasa la imagen a Analizar al Detector de Objeto que hemos Creado
-        detectorObjetos.process(imagenAnalizar).addOnSuccessListener {listaObjetosDetectados->
-
-            if(listaObjetosDetectados.size > 0 )
+            if(camaraEncendida)
             {
-                val rect = listaObjetosDetectados.get(0).boundingBox
-                Log.e("Objeto Detectado", "Posicion: ${rect}")
+                //Se obtiene el rectacgulo que delimita el objeto detectado y se pasa a la funcion que se encarga de dibujarlo en pantalla
+                val rect = objetoDetectado.boundingBox
+                dibujarLimiteObjeto(rect)
 
+                //Se comprueba si el objeto detectado tambien ha sido etiquetado por el detector y en dicho caso se muestra su etiqueta en pantalla
+                if(objetoDetectado.labels.size > 0)
+                    binding.textViewEtiquetaObjeto.text = objetoDetectado.labels.get(0).text
+                else
+                    binding.textViewEtiquetaObjeto.text = "--"
 
-                if(listaObjetosDetectados.get(0).labels.size > 0)
-                {
-                    val etiqueta = listaObjetosDetectados.get(0).labels.get(0).text
-                    Log.e("Nombre Objeto Detectado", "${etiqueta}")
-                }
-
+            }else
+            {
+                //Se limpia el ImageView del rectangulo que se hubiera dibujado en una deteccion anterior
+                binding.imgViewTransparente.setImageBitmap(null)
+                binding.textViewEtiquetaObjeto.text = "--"
             }
 
-
-            //Se cierra la imagen capturada por el analizador de CameraX
-            imageProxy.close()
-
-        }
-        .addOnFailureListener {
-            Log.e("Error", "Fallo Detector Objetos")
-            imageProxy.close()
         }
 
     }
+
+
+
 
 
     //******** Clase interna donde se define el analizador de Imagen usado por CameraX, El analizado devueve Resultados cada segundo aproximadamente ********
@@ -199,8 +232,8 @@ class FragmentPruebaDetectorObjetos: Fragment()
 
                 val imagenAnalizar = InputImage.fromMediaImage(image, imageProxy.imageInfo.rotationDegrees)
 
-                //Se pasa la imagen de la que se quiere detectar objetos dentro de la misma al Escaner que se encarga de acerlo
-                detectarObjetos(imagenAnalizar, imageProxy)
+                //Se pasa la imagen de la que se quiere detectar objetos dentro de la misma al Escaner que se encarga de acerlo (Definido en el ViewModel)
+                model.detectarObjetos(imagenAnalizar, imageProxy)
             }
         }
 
