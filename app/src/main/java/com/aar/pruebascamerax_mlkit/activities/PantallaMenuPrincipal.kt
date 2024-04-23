@@ -6,6 +6,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
 import com.aar.pruebascamerax_mlkit.R
 import com.aar.pruebascamerax_mlkit.databinding.LayoutPantallaMenuPrincipalBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 
 class PantallaMenuPrincipal : AppCompatActivity()
@@ -17,10 +18,12 @@ class PantallaMenuPrincipal : AppCompatActivity()
         val binding = LayoutPantallaMenuPrincipalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Se instancia la Toolbar
         setSupportActionBar(binding.toolbarPantallaPrincipal)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(true)
         supportActionBar!!.setTitle("")
+
 
         //Se Crea Objeto NavController
         val navController = Navigation.findNavController(this, R.id.NavHostFragment)
@@ -38,9 +41,12 @@ class PantallaMenuPrincipal : AppCompatActivity()
                 R.id.fragmentPruebaLectorQR->{ supportActionBar!!.setTitle(R.string.titFragmentLectorQR) }
                 R.id.fragmentPruebaEtiquetadoImagenes->{ supportActionBar!!.setTitle(R.string.titFragmentEtiquetadoImagenes)}
                 R.id.fragmentPruebaDetectorObjetos->{ supportActionBar!!.setTitle(R.string.titFragmentDetectorObjetos) }
+                R.id.fragmentPruebaReconocimientoTexto->{ supportActionBar!!.setTitle(R.string.titFragmentReconocimientoTexto) }
             }
 
         }
+
+
 
     }
 

@@ -80,6 +80,18 @@ class FragmentMenuPrincipal: Fragment()
 
         }
 
+
+                //Click  en la opcion Reconocimiento de Text
+        binding.txtPruebaReconocimientoTexto.setOnClickListener {
+
+            //Primero se comprueba si se dispone de permiso del usuario para usar la Camara
+            if(ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                navController.navigate(R.id.irFragmentPruebaReconocimientoTexto)
+            else
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+
+        }
+
         //************************************ Fin Clicklisteners ************************************
 
 
@@ -111,9 +123,6 @@ class FragmentMenuPrincipal: Fragment()
         //Se instancia el Objeto navController
         navController = Navigation.findNavController(view)
     }
-
-
-
 
 
 }

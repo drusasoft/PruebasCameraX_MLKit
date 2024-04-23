@@ -9,6 +9,7 @@
     <string name="txtOpcionLectorQR">* Prueba Lector QR</string>
     <string name="txtOpcionEtiquetadoImagenes">* Prueba Etiquetado Imagenes</string>
     <string name="txtOpcionDetectorImages">* Prueba Detector Objetos</string>
+    <string name="txtOpcionReconocimientoTexto">* Prueba Reconocimiento Texto</string>
     <!-- Fin Fragment Menu Principal -->
 
     <!-- Fragment CameraX -->
@@ -29,5 +30,16 @@
     <string name="titFragmentDetectorObjetos">Prueba Detector Objetos</string>
     <string name="txtInfoDetectorImagenes">Se detectan los objetos en la imagen obtenida por la camara, se obtiene el nombre de los objetos y su posicion en la imagen para asi por ejemplo poder marcarlos con un rectangulo.</string>
     <!-- Fin Fragment EtiquetadoImagenes -->
+
+    <!-- Fragment ReconocimientoTexto -->
+    <string name="titFragmentReconocimientoTexto">Prueba Reconocimiento Texto</string>
+    <string name="titMenuLatino">Caracteres Latinos</string>
+    <string name="titMenuDevanagari">Caracteres Devanagari</string>
+    <string name="titMenuJapones">Caracteres Japonenes</string>
+    <string name="titMenuKoreano">Caracteres Koreanos</string>
+    <string name="titMenuChino">Caracteres Chinos</string>
+    <string name="titDialogTextoCapturado">Texto Capturado</string>
+    <string name="btnAceptar">Aceptar</string>
+    <!-- Fin Fragment ReconocimientoTexto -->
 
 </resources>

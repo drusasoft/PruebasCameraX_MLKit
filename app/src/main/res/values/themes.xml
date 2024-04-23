@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PruebasCameraX_MLKit" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.PruebasCameraX_MLKit" parent="Theme.Material3.Light.NoActionBar">
 
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/indigo_500</item>
@@ -28,6 +28,12 @@
     <style name="mToolBarTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="titleTextColor">@color/white</item>
         <item name="fontFamily">@font/aclonica</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="mToolbarPopupTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/indigo_500</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
     <!-- Fin Estilo de la Toolbar-->

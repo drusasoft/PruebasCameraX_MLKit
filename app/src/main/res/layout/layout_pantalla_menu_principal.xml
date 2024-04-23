@@ -11,6 +11,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/indigo_500"
         android:theme="@style/mToolBarStyle"
+        app:popupTheme="@style/mToolbarPopupTheme"
         app:titleTextAppearance="@style/mToolBarTextStyle"
         app:titleTextColor="@color/white"/>
 

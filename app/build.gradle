@@ -49,6 +49,7 @@ dependencies {
     def barcode_scanning_version = "17.0.3"
     def image_labeling_version = "17.0.7"
     def object_detection_version = "17.0.0"
+    def text_recognition_version = "16.0.0"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -84,7 +85,12 @@ dependencies {
     //Libreria ML_KIT para el detector de Objetos
     implementation "com.google.mlkit:object-detection:${object_detection_version}"
 
-
+    //Libreria ML_kit para detectar Texto
+    implementation 'com.google.mlkit:text-recognition:16.0.0'//Para poder reconocer caracteres latinos
+    implementation 'com.google.mlkit:text-recognition-devanagari:16.0.0'//Para poder reconocer caracteres devanagari
+    implementation 'com.google.mlkit:text-recognition-japanese:16.0.0'//Para poder reconocer caracteres japonenes
+    implementation 'com.google.mlkit:text-recognition-korean:16.0.0'//Para poder reconocer caracteres koreanos
+    implementation 'com.google.mlkit:text-recognition-chinese:16.0.0'//Para poder reconocer caracteres chinos
 
     //Librerias para Test
     testImplementation 'junit:junit:4.13.2'

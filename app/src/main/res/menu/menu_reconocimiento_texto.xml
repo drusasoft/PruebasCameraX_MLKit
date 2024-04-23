@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/menu_caracteres_latinos"
+        android:title="@string/titMenuLatino"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_caracteres_Devanagari"
+        android:title="@string/titMenuDevanagari"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_caracteres_Japonenes"
+        android:title="@string/titMenuJapones"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_caracteres_Koreanos"
+        android:title="@string/titMenuKoreano"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/menu_caracteres_Chinos"
+        android:title="@string/titMenuChino"
+        app:showAsAction="never"/>
+
+</menu>

@@ -167,7 +167,7 @@ class FragmentPruebaCameraX: Fragment()
 
 
     //Clase interna donde se define el analizador de Imagen usado por CameraX, El analizado devueve Resultados cada segundo aproximadamente
-    private class AnalizadorImagen():ImageAnalysis.Analyzer
+    inner class AnalizadorImagen():ImageAnalysis.Analyzer
     {
 
         private fun ByteBuffer.toByteArray(): ByteArray
